@@ -10,9 +10,12 @@
   </head>
 
   <body>
-    <div>
-      <%= flash["notice"] %>
+    <div class="flash-messages">
+      <% flash.each do |key, message| %>
+        <div class="flash <%= key %>"><%= message %></div>
+      <% end %>
     </div>
+
     <div>
       <a href="/">Home</a>
       <a href="/logout">Logout</a>
