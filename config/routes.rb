@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   root "places#index"
   resources :entries
   resources :places
-  resources :sessions
+  resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :show]
-end
 
+  get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
+end

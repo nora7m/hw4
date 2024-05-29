@@ -18,9 +18,12 @@
 
     <div>
       <a href="/">Home</a>
-      <a href="/logout">Logout</a>
-      <a href="/login">Login</a>
-      <a href="/users/new">Signup</a>
+      <% if current_user %>
+        <a href="/logout" data-method="delete">Logout</a>
+      <% else %>
+        <a href="/login">Login</a>
+        <a href="/users/new">Signup</a>
+      <% end %>
     </div>
 
     <%= yield %>
