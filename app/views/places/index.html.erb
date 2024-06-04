@@ -2,7 +2,18 @@
 
 <ul>
   <% for place in @places %>
-    <li><a href="/places/<%= place["id"] %>"><%= place["name"] %></a></li>
+    <li>
+      <a href="/places/<%= place.id %>"><%= place.name %></a>
+      <ul>
+        <% place.entries.each do |entry| %>
+          <li>
+            <strong><%= entry.title %></strong><br>
+            <%= entry.description %><br>
+            <small><%= entry.posted_on.strftime("%B %d, %Y") %></small>
+          </li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>
 
