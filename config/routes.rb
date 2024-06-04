@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root "places#index"
-  resources :entries
-  resources :places
+
+  resources :places do
+    resources :entries, only: [:new, :create, :index, :show]
+  end
+
   resources :sessions, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :show]
 

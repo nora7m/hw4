@@ -1,24 +1,31 @@
 class PlacesController < ApplicationController
-  
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @places = Place.all
   end
 
   def show
-    @place = Place.find_by({ "id" => params["id"] })
-    @entries = Entry.where({ "place_id" => @place["id"] })
+    @place = Place.find(params[:id])
+    @entries = @place.entries
   end
 
   def new
+    @place = Place.new
   end
 
   def create
-    @place = Place.new
-    @place["name"] = params["name"]
-    @place.save
-    redirect_to "/places"
+    @place = Place.new(place_params)
+    if @place.save
+      redirect_to @place
+    else
+      render :new
+    end
   end
 
+  private
+
+  def place_params
+    params.require(:place).permit(:name)
+  end
 end
