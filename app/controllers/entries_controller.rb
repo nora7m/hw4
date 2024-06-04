@@ -9,9 +9,12 @@ class EntriesController < ApplicationController
   def create
     @place = Place.find(params[:place_id])
     @entry = @place.entries.build(entry_params)
-    @entry.user = current_user  # Assign the entry to the logged-in user
+    @entry.user = current_user
 
     if @entry.save
+      if params[:entry][:uploaded_image].present?
+        @entry.uploaded_image.attach(params[:entry][:uploaded_image])
+      end
       redirect_to place_path(@place), notice: 'Entry was successfully created.'
     else
       render :new
@@ -30,7 +33,7 @@ class EntriesController < ApplicationController
   private
 
   def entry_params
-    params.require(:entry).permit(:title, :description, :occurred_on)
+    params.require(:entry).permit(:title, :description, :occurred_on, :uploaded_image)
   end
 
   def authenticate_user!

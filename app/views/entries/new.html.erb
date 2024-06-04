@@ -1,7 +1,7 @@
 <% if current_user %>
   <h1>New Entry</h1>
 
-  <%= form_with(model: [@place, @entry], local: true) do |form| %>
+  <%= form_with(model: [@place, @entry], local: true, html: { multipart: true }) do |form| %>
     <div class="mb-3">
       <%= form.label :title, class: 'form-label' %>
       <%= form.text_field :title, class: 'form-control' %>
@@ -15,6 +15,11 @@
     <div class="mb-3">
       <%= form.label :occurred_on, class: 'form-label' %>
       <%= form.date_select :occurred_on, class: 'form-control' %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :uploaded_image, "Upload Image", class: 'form-label' %>
+      <%= form.file_field :uploaded_image, class: 'form-control', accept: 'image/png, image/jpg, image/jpeg, image/gif' %>
     </div>
 
     <div class="actions">

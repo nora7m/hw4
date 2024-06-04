@@ -1,0 +1,11 @@
+<h1><%= @entry.title %></h1>
+<p><%= @entry.description %></p>
+<p><%= @entry.occurred_on %></p>
+
+<% if @entry.uploaded_image.attached? %>
+  <%= image_tag @entry.uploaded_image, class: 'img-fluid' %>
+<% end %>
+
+<p>
+  <%= link_to 'Back to Place', place_path(@entry.place), class: 'btn btn-secondary' %>
+</p>
