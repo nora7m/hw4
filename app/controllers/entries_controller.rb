@@ -8,7 +8,7 @@ class EntriesController < ApplicationController
     @place = Place.find(params[:place_id])
     @entry = @place.entries.build(entry_params)
     if @entry.save
-      redirect_to place_path(@place)
+      redirect_to place_path(@place), notice: 'Entry was successfully created.'
     else
       render :new
     end
