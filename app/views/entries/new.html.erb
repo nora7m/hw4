@@ -2,23 +2,23 @@
   <h1>New Entry</h1>
 
   <%= form_with(model: [@place, @entry], local: true) do |form| %>
-    <div class="field">
-      <%= form.label :title %>
-      <%= form.text_field :title %>
+    <div class="mb-3">
+      <%= form.label :title, class: 'form-label' %>
+      <%= form.text_field :title, class: 'form-control' %>
     </div>
 
-    <div class="field">
-      <%= form.label :description %>
-      <%= form.text_area :description %>
+    <div class="mb-3">
+      <%= form.label :description, class: 'form-label' %>
+      <%= form.text_area :description, class: 'form-control' %>
     </div>
 
-    <div class="field">
-      <%= form.label :occurred_on %>
-      <%= form.date_select :occurred_on %>
+    <div class="mb-3">
+      <%= form.label :occurred_on, class: 'form-label' %>
+      <%= form.date_select :occurred_on, class: 'form-control' %>
     </div>
 
     <div class="actions">
-      <%= form.submit %>
+      <%= form.submit 'Create Entry', class: 'btn btn-primary' %>
     </div>
   <% end %>
 <% else %>
