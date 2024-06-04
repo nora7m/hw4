@@ -5,7 +5,11 @@ class UsersController < ApplicationController
 
   def create
     logger.debug "Params: #{params.inspect}"  # Log the incoming parameters
-    @user = User.new(user_params)
+
+    # Manually encrypt the password using BCrypt before saving
+    @user = User.new(user_params.except(:password, :password_confirmation))
+    @user.password = BCrypt::Password.create(params[:user][:password])
+
     if @user.save
       flash[:notice] = 'User was successfully created.'
       logger.debug "User saved successfully, redirecting to user show page."
@@ -24,6 +28,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end  
 end
