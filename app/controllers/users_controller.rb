@@ -6,9 +6,7 @@ class UsersController < ApplicationController
   def create
     logger.debug "Params: #{params.inspect}"  # Log the incoming parameters
 
-    # Manually encrypt the password using BCrypt before saving
-    @user = User.new(user_params.except(:password, :password_confirmation))
-    @user.password = BCrypt::Password.create(params[:user][:password])
+    @user = User.new(user_params)  # No need to manually encrypt the password
 
     if @user.save
       flash[:notice] = 'User was successfully created.'

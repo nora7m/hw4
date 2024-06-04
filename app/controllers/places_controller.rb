@@ -1,13 +1,21 @@
 class PlacesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index]
 
   def index
-    @places = Place.all
+    if current_user
+      @places = Place.where(user: current_user)
+    else
+      @places = []
+    end
   end
 
   def show
     @place = Place.find(params[:id])
-    @entries = @place.entries
+    if current_user
+      @entries = @place.entries.where(user: current_user)
+    else
+      @entries = []
+    end
   end
 
   def new
@@ -16,6 +24,7 @@ class PlacesController < ApplicationController
 
   def create
     @place = Place.new(place_params)
+    @place.user = current_user  # Assign the place to the logged-in user
     if @place.save
       redirect_to @place
     else

@@ -4,8 +4,8 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(email: params[:email])
-    
-    if user && BCrypt::Password.new(user["password"]) == params[:password]  # Authenticate using bcrypt
+
+    if user && BCrypt::Password.new(user.password_digest) == params[:password]  # Authenticate using bcrypt
       session[:user_id] = user.id
       redirect_to places_path, notice: "Logged in!"
     else

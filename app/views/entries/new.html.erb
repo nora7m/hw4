@@ -1,23 +1,26 @@
-<h1>New Entry</h1>
+<% if current_user %>
+  <h1>New Entry</h1>
 
-<form action="<%= place_entries_path(params[:place_id]) %>" method="post">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <input type="hidden" name="place_id" value="<%= params["place_id"] %>">
+  <%= form_with(model: [@place, @entry], local: true) do |form| %>
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
 
-  <p>
-    <label for="title_input">Title</label>
-    <input type="text" name="entry[title]" id="title_input">
-  </p>
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_area :description %>
+    </div>
 
-  <p>
-    <label for="description_input">Description</label>
-    <input type="text" name="entry[description]" id="description_input">
-  </p>
+    <div class="field">
+      <%= form.label :occurred_on %>
+      <%= form.date_select :occurred_on %>
+    </div>
 
-  <p>
-    <label for="occurred_on_input">Occurred On</label>
-    <input type="date" name="entry[occurred_on]" id="occurred_on_input">
-  </p>
-
-  <button>Save</button>
-</form>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+  <% end %>
+<% else %>
+  <p>You must be logged in to create a new entry.</p>
+<% end %>
