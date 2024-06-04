@@ -23,8 +23,8 @@
           <div class="navbar-nav">
             <%= link_to 'Home', root_path, class: 'nav-link active', 'aria-current': 'page' %>
             <% if current_user %>
-              <span class="navbar-text">Welcome, <%= current_user.username %>!</span>
               <%= button_to 'Logout', logout_path, method: :delete, class: 'btn btn-link nav-link' %>
+              <span class="navbar-text ms-2 text-primary">Welcome, <%= current_user.username %>!</span>
             <% else %>
               <%= link_to 'Login', login_path, class: 'nav-link' %>
               <%= link_to 'Signup', new_user_path, class: 'nav-link' %>
