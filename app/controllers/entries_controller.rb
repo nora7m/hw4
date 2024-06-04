@@ -14,3 +14,5 @@ class EntriesController < ApplicationController
   end
 
 end
+
+
